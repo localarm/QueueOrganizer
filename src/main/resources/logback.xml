@@ -1,0 +1,41 @@
+<Configuration>
+    <property file="application.properties" />
+    <appender name="FILE" class = "ch.qos.logback.core.rolling.RollingFileAppender" >
+        <if condition='isDefined("logback.LOG_DIR")'>
+            <then>
+                <file>${logback.LOG_DIR}/logFile.log</file>
+            </then>
+            <else>
+                <file>logs/logFile.log</file>
+            </else>
+        </if>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>logFile%i.log</FileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>7</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>1GB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+                <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <if condition='isDefined("logback.loglevel")'>
+        <then>
+            <root level="${logback.loglevel}">
+                <appender-ref ref="FILE"/>
+            </root>
+        </then>
+        <else>
+            <root level="INFO">
+                <appender-ref ref="FILE"/>
+            </root>
+        </else>
+
+    </if>
+
+
+
+</Configuration>

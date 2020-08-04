@@ -1,0 +1,10 @@
+.idea/
+logs/
+out/
+*.log
+.gradle
+/build/
+.gradletasknamecache
+gradle/wrapper/gradle-wrapper.properties
+
+
